@@ -47,6 +47,18 @@ class ViewController: UIViewController {
 
 extension ViewController : UITableViewDelegate,UITableViewDataSource   {
     
+    
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(indexPath.row) is selcted ")
+        //self.performSegue(withIdentifier: "toBlogPost", sender: self)
+        let view: BlogPostViewController = self.storyboard?.instantiateViewController(withIdentifier: "blogPost") as! BlogPostViewController
+        
+        self.navigationController?.pushViewController(view, animated: true)
+        view.blogPostName = blogsdata[indexPath.row].title
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return blogsdata.count
     }

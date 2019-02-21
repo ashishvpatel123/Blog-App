@@ -13,6 +13,7 @@
 		49089CEF221F0E8000981ADA /* Blog_App.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 49089CED221F0E8000981ADA /* Blog_App.xcdatamodeld */; };
 		49089CF1221F0E8200981ADA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49089CF0221F0E8200981ADA /* Assets.xcassets */; };
 		49089CF4221F0E8200981ADA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49089CF2221F0E8200981ADA /* LaunchScreen.storyboard */; };
+		49089CFC221F633200981ADA /* BlogPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49089CFB221F633200981ADA /* BlogPostViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		49089CF0221F0E8200981ADA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49089CF3221F0E8200981ADA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49089CF5221F0E8200981ADA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49089CFB221F633200981ADA /* BlogPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogPostViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				49089CE6221F0E8000981ADA /* AppDelegate.swift */,
 				49089CE8221F0E8000981ADA /* ViewController.swift */,
 				49089CEA221F0E8000981ADA /* Main.storyboard */,
+				49089CFB221F633200981ADA /* BlogPostViewController.swift */,
 				49089CF0221F0E8200981ADA /* Assets.xcassets */,
 				49089CF2221F0E8200981ADA /* LaunchScreen.storyboard */,
 				49089CF5221F0E8200981ADA /* Info.plist */,
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49089CFC221F633200981ADA /* BlogPostViewController.swift in Sources */,
 				49089CEF221F0E8000981ADA /* Blog_App.xcdatamodeld in Sources */,
 				49089CE9221F0E8000981ADA /* ViewController.swift in Sources */,
 				49089CE7221F0E8000981ADA /* AppDelegate.swift in Sources */,
