@@ -13,6 +13,11 @@ struct data : Decodable{
     let title : String
     let content : String
     
+    init(title:String,content:String) {
+        self.title = title
+        self.content = content
+    }
+    
 }
 
 struct BlogData : Decodable{
@@ -33,8 +38,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // removing the previous saved data 
-        print("delete called")
-         deleteData()
         // Do any additional setup after loading the view, typically from a nib.
 //
 //        dispachGroup.notify(queue: .main) {
@@ -83,12 +86,16 @@ extension ViewController : UITableViewDelegate,UITableViewDataSource   {
             guard let dataResponse = data,
                 error == nil else {
                     print(error?.localizedDescription ?? "Response Error")
+                    print("error in getting json deata")
+                    self.getData()
                     return }
             do{
                 //here dataResponse received from a network request
                 let data = try JSONDecoder().decode(BlogData.self , from: dataResponse)
                 print("ans :: ",data.items)
                 print("this is bloh=gs data",blogsdata)
+                print("delete called")
+                self.deleteData()
                 for entry in data.items{
                     blogsdata.append(entry)
                     self.saveBlog(title: entry.title, content: entry.content)
@@ -145,14 +152,18 @@ extension ViewController : UITableViewDelegate,UITableViewDataSource   {
             let blog = try managedContext.fetch(fetchRequest)
             for eachBlog in blog{
                 print("blog from persistance \(String(describing: eachBlog.value(forKey: "title")))")
+                blogsdata.insert(data(title: String(describing: eachBlog.value(forKey: "title")!),content: String(describing: eachBlog.value(forKey: "content")!))
+                    , at: 0)
             }
            
             
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
-        print("before delete")
-        deleteData()
+        DispatchQueue.main.async {
+              self.tableView.reloadData()
+        }
+      
     }
     
     func deleteData() {
