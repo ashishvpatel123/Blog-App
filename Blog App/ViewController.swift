@@ -32,6 +32,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        // removing the previous saved data 
+        print("delete called")
+         deleteData()
         // Do any additional setup after loading the view, typically from a nib.
 //
 //        dispachGroup.notify(queue: .main) {
@@ -121,7 +124,7 @@ extension ViewController : UITableViewDelegate,UITableViewDataSource   {
             print("Could not save. \(error), \(error.userInfo)")
         }
         }
-        getData()
+       
     }
     
     func getData(){
@@ -147,6 +150,28 @@ extension ViewController : UITableViewDelegate,UITableViewDataSource   {
             
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        print("before delete")
+        deleteData()
+    }
+    
+    func deleteData() {
+        
+        let appDel:AppDelegate = (UIApplication.shared.delegate as! AppDelegate)
+        let context:NSManagedObjectContext = appDel.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BlogDataPersistance")
+        fetchRequest.returnsObjectsAsFaults = false
+        
+        do
+        {
+            let results = try context.fetch(fetchRequest)
+            for managedObject in results
+            {
+                let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
+                context.delete(managedObjectData)
+            }
+        } catch let error as NSError {
+            print("Deleted all my data in myEntity error : \(error) \(error.userInfo)")
         }
     }
     
