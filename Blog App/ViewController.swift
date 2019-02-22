@@ -7,7 +7,7 @@
 // BLog key : AIzaSyB3Dfp5_PDnpccYneZkJY9o0k1i0TMgHO4
 
 import UIKit
-
+import CoreData
 
 struct data : Decodable{
     let title : String
@@ -88,6 +88,7 @@ extension ViewController : UITableViewDelegate,UITableViewDataSource   {
                 print("this is bloh=gs data",blogsdata)
                 for entry in data.items{
                     blogsdata.append(entry)
+                    self.saveBlog(title: entry.title, content: entry.content)
                 }
                 print("this is after putting into blogs data \(blogsdata)")
             } catch let parsingError {
@@ -99,6 +100,54 @@ extension ViewController : UITableViewDelegate,UITableViewDataSource   {
            
         }
         task.resume()
+    }
+    
+    func saveBlog(title:String , content:String){
+        if title != nil && content != nil{
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let entity = NSEntityDescription.entity(forEntityName: "BlogDataPersistance", in: context)
+        let newBlog = NSManagedObject(entity: entity!, insertInto: context)
+        
+        newBlog.setValue(title, forKey: "title")
+        newBlog.setValue(content, forKey: "content")
+        
+        do {
+            try context.save()
+           print("Data Saved")
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+        }
+        getData()
+    }
+    
+    func getData(){
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        
+        let managedContext =
+            appDelegate.persistentContainer.viewContext
+        
+        //2
+        let fetchRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "BlogDataPersistance")
+        
+        //3
+        do {
+            let blog = try managedContext.fetch(fetchRequest)
+            for eachBlog in blog{
+                print("blog from persistance \(String(describing: eachBlog.value(forKey: "title")))")
+            }
+           
+            
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
     }
     
 }
